@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energía en la montaña rusa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Calculadora chidori</h1>
+  <p>Suelta la esfera y mira cómo la energía potencial se convierte en cinética.</p>
+</header>
+
+<main>
+  <section class="stage">
+    <canvas id="scene" aria-label="Esquema de una esfera sobre una montaña rusa"></canvas>
+    <p id="caption" class="caption" aria-live="polite"></p>
+    <p class="hint">Toca o arrastra sobre la pista para colocar la esfera donde quieras.</p>
+    <div id="broken" class="broken" hidden>
+      <h2>¡Sistema roto!</h2>
+      <p>Con más de 1000 kg la estructura no aguantó.</p>
+      <button id="rebuild" class="btn main">Reconstruir (5 kg)</button>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="buttons">
+      <button id="play" class="btn main">Soltar esfera</button>
+      <button id="reset" class="btn">Reiniciar</button>
+    </div>
+
+    <fieldset>
+      <legend>Parámetros</legend>
+      <div class="row"><label for="n-m">Masa (kg)</label>
+        <input type="range" id="r-m" min="0" max="1000" step="1"><input type="number" id="n-m" min="0.1" step="0.1"></div>
+      <p id="massnote" class="note">Rango: 0.1 – 1000 kg</p>
+      <div class="row"><label for="n-h">Altura inicial (m)</label>
+        <input type="range" id="r-h" min="0" max="1000" step="1"><input type="number" id="n-h" min="0" max="1000" step="1"></div>
+      <div class="row"><label for="n-v0">Velocidad inicial (m/s)</label>
+        <input type="range" id="r-v0" min="0" max="300" step="0.5"><input type="number" id="n-v0" min="0" max="300" step="0.5"></div>
+      <div class="row"><label for="n-mu">Fricción (μ)</label>
+        <input type="range" id="r-mu" min="0" max="0.5" step="0.01"><input type="number" id="n-mu" min="0" max="0.5" step="0.01"></div>
+      <div class="row"><label for="n-ts">Velocidad de la animación (×)</label>
+        <input type="range" id="r-ts" min="0.1" max="10" step="0.1"><input type="number" id="n-ts" min="0.1" max="10" step="0.1"></div>
+      <div class="row"><label for="s-g">Gravedad</label>
+        <select id="s-g">
+          <option value="9.81">Tierra · 9.81 m/s²</option>
+          <option value="1.62">Luna · 1.62 m/s²</option>
+          <option value="3.71">Marte · 3.71 m/s²</option>
+          <option value="24.79">Júpiter · 24.79 m/s²</option>
+          <option value="274">Sol · 274 m/s²</option>
+        </select></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Medición en vivo</legend>
+      <dl class="read">
+        <div><dt>Altura</dt><dd id="o-h">0 m</dd></div>
+        <div><dt>Velocidad</dt><dd id="o-v">0 m/s</dd></div>
+      </dl>
+      <div class="bar"><span>Ep = m·g·h</span><b id="o-ep">0 J</b><i><u id="b-ep" class="pe"></u></i></div>
+      <div class="bar"><span>Ec = ½·m·v²</span><b id="o-ec">0 J</b><i><u id="b-ec" class="ke"></u></i></div>
+      <div class="bar"><span>Ep + Ec</span><b id="o-et">0 J</b><i><u id="b-et" class="tot"></u></i></div>
+      <canvas id="graph" aria-label="Gráfica de energía contra tiempo"></canvas>
+      <p class="legend"><span class="pe"></span>potencial <span class="ke"></span>cinética <span class="tot"></span>total</p>
+    </fieldset>
+  </aside>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
